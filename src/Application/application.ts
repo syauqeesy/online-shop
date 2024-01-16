@@ -1,3 +1,3 @@
 interface Application {
-  run(): void;
+  start(): void;
 }

@@ -1,3 +1,3 @@
 import application from "./Application/main";
 
-application().run();
+application().start();
