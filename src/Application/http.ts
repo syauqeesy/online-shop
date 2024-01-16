@@ -3,6 +3,7 @@ import express, {
   Request,
   Response,
 } from "express";
+import config from "../Config/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -21,7 +22,9 @@ class Http implements Application {
         })
     );
 
-    this.e.listen(5000, () => console.log(`server run on port ${5000}`));
+    this.e.listen(config.app.port, () =>
+      console.log(`server run on port ${config.app.port}`)
+    );
   }
 }
 
