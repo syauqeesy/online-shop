@@ -5,7 +5,6 @@ WORKDIR /app
 COPY ./package.json .
 COPY ./package-lock.json .
 COPY ./tsconfig.json .
-COPY ./.env .
 COPY ./src ./src
 
 RUN npm install
