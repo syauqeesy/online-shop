@@ -5,6 +5,7 @@ import { ERROR_TODO_NOT_FOUND } from "../../Exception/Todo";
 interface TodoRepository {
   find(): Promise<TodoEntity[]>;
   findById(id: string): Promise<TodoEntity>;
+  insert(todo: TodoEntity): Promise<TodoEntity>;
 }
 
 class Todo extends Repository implements TodoRepository {
@@ -17,6 +18,12 @@ class Todo extends Repository implements TodoRepository {
     if (!todo) {
       throw ERROR_TODO_NOT_FOUND;
     }
+
+    return todo;
+  }
+
+  public async insert(todo: TodoEntity): Promise<TodoEntity> {
+    await this.repository.todo.insert(todo);
 
     return todo;
   }

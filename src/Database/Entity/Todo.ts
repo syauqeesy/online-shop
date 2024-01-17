@@ -25,7 +25,7 @@ class Todo extends BaseEntity {
     type: "tinyint",
     nullable: false,
   })
-  public is_checked: boolean = false;
+  public is_checked: number = 0;
 
   @Column({
     type: "bigint",

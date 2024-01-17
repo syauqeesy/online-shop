@@ -1,10 +1,12 @@
 import Service from "./Service";
 import { TodoInfo } from "../Resource/todo";
-import { ShowTodoRequest } from "../Request/todo";
+import TodoEntity from "../Database/Entity/Todo";
+import { CreateTodoRequest, ShowTodoRequest } from "../Request/todo";
 
 interface TodoService {
   list(): Promise<TodoInfo[]>;
   show(request: ShowTodoRequest): Promise<TodoInfo>;
+  create(request: CreateTodoRequest): Promise<TodoInfo>;
 }
 
 class Todo extends Service implements TodoService {
@@ -20,6 +22,16 @@ class Todo extends Service implements TodoService {
 
   public async show(request: ShowTodoRequest): Promise<TodoInfo> {
     const todo = await this.repository.todo.findById(request.id);
+
+    return todo.getPublicInfo();
+  }
+
+  public async create(request: CreateTodoRequest): Promise<TodoInfo> {
+    const todo = new TodoEntity();
+    todo.title = request.title;
+    todo.body = request.body;
+
+    await this.repository.todo.insert(todo);
 
     return todo.getPublicInfo();
   }
