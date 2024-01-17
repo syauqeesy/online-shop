@@ -5,7 +5,12 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./dist/main.js",
-    "typescript": "tsc"
+    "typescript": "tsc",
+    "typescript-watch": "tsc -watch",
+    "typeorm": "typeorm",
+    "migration-create": "typeorm migration:create",
+    "migration-up": "typeorm migration:run -d ./dist/migration.js",
+    "migration-down": "typeorm migration:revert -d ./dist/migration.js"
   },
   "repository": {
     "type": "git",
