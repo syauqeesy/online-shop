@@ -11,7 +11,9 @@ class Database implements Application {
       port: config.database.port,
       username: config.database.username,
       password: config.database.password,
-      name: config.database.name,
+      database: config.database.name,
+      migrations: ["./dist/Database/Migration/*.js"],
+      migrationsTableName: "migrations",
     };
 
     this.dataSource = new DataSource(option);
