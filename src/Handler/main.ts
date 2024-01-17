@@ -15,6 +15,18 @@ const newHandler = (e: Application, s: service): void => {
       }
     }
   );
+  e.get(
+    "/api/v1/todo/:id",
+    async (request: Request, response: Response): Promise<void> => {
+      try {
+        const result = await s.todo.show(request.params.id as string);
+
+        writeSuccessResponse(response, 200, "get todo success", result);
+      } catch (caught: unknown) {
+        writeFailResponse(response, caught, null);
+      }
+    }
+  );
 };
 
 export { newHandler };

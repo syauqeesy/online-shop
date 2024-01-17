@@ -27,7 +27,7 @@ const writeFailResponse = (
     message = error.message;
   }
 
-  if (error instanceof Error) {
+  if (error instanceof Error && statusCode === 500) {
     console.log(error.message);
   }
 

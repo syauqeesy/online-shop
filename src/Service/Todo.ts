@@ -3,6 +3,7 @@ import { TodoInfo } from "../Resource/todo";
 
 interface TodoService {
   list(): Promise<TodoInfo[]>;
+  show(id: string): Promise<TodoInfo>;
 }
 
 class Todo extends Service implements TodoService {
@@ -14,6 +15,12 @@ class Todo extends Service implements TodoService {
     todos.forEach((todo) => todoInfos.push(todo.getPublicInfo()));
 
     return todoInfos;
+  }
+
+  public async show(id: string): Promise<TodoInfo> {
+    const todo = await this.repository.todo.findById(id);
+
+    return todo.getPublicInfo();
   }
 }
 
