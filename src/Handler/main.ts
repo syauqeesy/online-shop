@@ -1,6 +1,8 @@
 import { Application, Request, Response } from "express";
 import { service } from "../Service/main";
 import { writeFailResponse, writeSuccessResponse } from "../Helper/response";
+import { ShowTodoRequest, showTodoRequestRules } from "../Request/todo";
+import { HttpException } from "../Exception/main";
 
 const newHandler = (e: Application, s: service): void => {
   e.get(
@@ -11,7 +13,7 @@ const newHandler = (e: Application, s: service): void => {
 
         writeSuccessResponse(response, 200, "get list of todo success", result);
       } catch (caught: unknown) {
-        writeFailResponse(response, caught, null);
+        writeFailResponse(response, caught);
       }
     }
   );
@@ -19,11 +21,22 @@ const newHandler = (e: Application, s: service): void => {
     "/api/v1/todo/:id",
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const result = await s.todo.show(request.params.id as string);
+        const body: ShowTodoRequest = {
+          id: request.params.id as string,
+        };
+        const validationResult = showTodoRequestRules.validate(body);
+        if (validationResult.error)
+          throw new HttpException(
+            "validation error",
+            400,
+            validationResult.error
+          );
+
+        const result = await s.todo.show(body);
 
         writeSuccessResponse(response, 200, "get todo success", result);
       } catch (caught: unknown) {
-        writeFailResponse(response, caught, null);
+        writeFailResponse(response, caught);
       }
     }
   );

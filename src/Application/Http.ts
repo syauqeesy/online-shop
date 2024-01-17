@@ -35,8 +35,7 @@ class Http implements Application {
       (_: Request, response: Response): Response =>
         writeFailResponse(
           response,
-          new HttpException("path not found", 404),
-          null
+          new HttpException("path not found", 404, null)
         )
     );
 

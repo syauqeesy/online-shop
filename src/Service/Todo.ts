@@ -1,9 +1,10 @@
 import Service from "./Service";
 import { TodoInfo } from "../Resource/todo";
+import { ShowTodoRequest } from "../Request/todo";
 
 interface TodoService {
   list(): Promise<TodoInfo[]>;
-  show(id: string): Promise<TodoInfo>;
+  show(request: ShowTodoRequest): Promise<TodoInfo>;
 }
 
 class Todo extends Service implements TodoService {
@@ -17,8 +18,8 @@ class Todo extends Service implements TodoService {
     return todoInfos;
   }
 
-  public async show(id: string): Promise<TodoInfo> {
-    const todo = await this.repository.todo.findById(id);
+  public async show(request: ShowTodoRequest): Promise<TodoInfo> {
+    const todo = await this.repository.todo.findById(request.id);
 
     return todo.getPublicInfo();
   }
