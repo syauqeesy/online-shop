@@ -9,6 +9,8 @@ import Database from "./Database";
 import { newHandler } from "../Handler/main";
 import { newService, service } from "../Service/main";
 import { newRepository, repository } from "../Database/Repository/main";
+import { writeFailResponse } from "../Helper/response";
+import { HttpException } from "../Exception/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -31,10 +33,11 @@ class Http implements Application {
     this.e.all(
       "*",
       (_: Request, response: Response): Response =>
-        response.status(404).json({
-          status: false,
-          message: "path not found",
-        })
+        writeFailResponse(
+          response,
+          new HttpException("path not found", 404),
+          null
+        )
     );
 
     this.database.start();
