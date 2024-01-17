@@ -17,3 +17,11 @@ export const createTodoRequestRules = Joi.object({
   title: Joi.string().required().max(191),
   body: Joi.string().required().max(382),
 });
+
+export type DeleteTodoRequest = {
+  id: string;
+};
+
+export const deleteTodoRequestRules = Joi.object({
+  id: Joi.string().required().uuid(),
+});
