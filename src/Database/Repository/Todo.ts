@@ -9,6 +9,7 @@ interface TodoRepository {
   findById(id: string): Promise<TodoEntity>;
   insert(todo: TodoEntity): Promise<void>;
   delete(todo: TodoEntity): Promise<void>;
+  update(todo: TodoEntity): Promise<void>;
 }
 
 class Todo extends Repository implements TodoRepository {
@@ -34,6 +35,10 @@ class Todo extends Repository implements TodoRepository {
   public async delete(todo: TodoEntity): Promise<void> {
     todo.deleted_at = DateTime.now().toMillis();
 
+    await this.repository.todo.save(todo);
+  }
+
+  public async update(todo: TodoEntity): Promise<void> {
     await this.repository.todo.save(todo);
   }
 }

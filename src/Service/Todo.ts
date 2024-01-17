@@ -4,6 +4,7 @@ import TodoEntity from "../Database/Entity/Todo";
 import {
   CreateTodoRequest,
   DeleteTodoRequest,
+  EditTodoRequest,
   ShowTodoRequest,
 } from "../Request/todo";
 
@@ -12,6 +13,7 @@ interface TodoService {
   show(request: ShowTodoRequest): Promise<TodoInfo>;
   create(request: CreateTodoRequest): Promise<TodoInfo>;
   delete(request: DeleteTodoRequest): Promise<void>;
+  edit(request: EditTodoRequest): Promise<TodoInfo>;
 }
 
 class Todo extends Service implements TodoService {
@@ -45,6 +47,16 @@ class Todo extends Service implements TodoService {
     const todo = await this.repository.todo.findById(request.id);
 
     await this.repository.todo.delete(todo);
+  }
+
+  public async edit(request: EditTodoRequest): Promise<TodoInfo> {
+    const todo = await this.repository.todo.findById(request.id);
+    if (request.title) todo.title = request.title;
+    if (request.body) todo.body = request.body;
+
+    await this.repository.todo.update(todo);
+
+    return todo.getPublicInfo();
   }
 }
 

@@ -25,3 +25,15 @@ export type DeleteTodoRequest = {
 export const deleteTodoRequestRules = Joi.object({
   id: Joi.string().required().uuid(),
 });
+
+export type EditTodoRequest = {
+  id: string;
+  title: string | null;
+  body: string | null;
+};
+
+export const editTodoRequestRules = Joi.object({
+  id: Joi.string().required().uuid(),
+  title: Joi.string().optional().max(191),
+  body: Joi.string().optional().max(382),
+});
