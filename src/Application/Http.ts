@@ -26,6 +26,8 @@ class Http implements Application {
   }
 
   public start(): void {
+    this.database.start();
+
     this.e.use(json());
 
     newHandler(this.e, this.service);
@@ -38,8 +40,6 @@ class Http implements Application {
           new HttpException("path not found", 404, null)
         )
     );
-
-    this.database.start();
 
     this.e.listen(config.app.port, () =>
       console.log(`server run on port ${config.app.port}`)
