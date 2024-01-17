@@ -28,8 +28,8 @@ export const deleteTodoRequestRules = Joi.object({
 
 export type EditTodoRequest = {
   id: string;
-  title: string | null;
-  body: string | null;
+  title: string | undefined;
+  body: string | undefined;
 };
 
 export const editTodoRequestRules = Joi.object({
