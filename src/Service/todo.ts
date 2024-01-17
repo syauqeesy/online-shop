@@ -1,5 +1,5 @@
-import Service from "./service";
-import TodoEntity from "../Database/Entity/todo";
+import Service from "./Service";
+import TodoEntity from "../Database/Entity/Todo";
 
 interface TodoService {
   list(): Promise<TodoEntity[]>;

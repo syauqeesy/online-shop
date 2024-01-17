@@ -5,7 +5,7 @@ import express, {
   json,
 } from "express";
 import config from "../Config/main";
-import Database from "./database";
+import Database from "./Database";
 import { newHandler } from "../Handler/main";
 import { newService, service } from "../Service/main";
 import { newRepository, repository } from "../Database/Repository/main";

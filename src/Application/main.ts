@@ -1,4 +1,4 @@
-import Http from "./http";
+import Http from "./Http";
 
 const application = (type: "http" = "http"): Application => {
   switch (type) {

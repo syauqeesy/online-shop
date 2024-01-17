@@ -1,5 +1,5 @@
 import { repository } from "../Database/Repository/main";
-import { Todo, TodoService } from "./todo";
+import { Todo, TodoService } from "./Todo";
 
 type service = {
   todo: TodoService;

@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
-import { Todo, TodoRepository } from "./todo";
-import TodoEntity from "../Entity/todo";
-import { typeOrmRepository } from "./repository";
+import { Todo, TodoRepository } from "./Todo";
+import TodoEntity from "../Entity/Todo";
+import { typeOrmRepository } from "./Repository";
 
 type repository = {
   todo: TodoRepository;

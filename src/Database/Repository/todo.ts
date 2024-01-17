@@ -1,5 +1,5 @@
-import { Repository } from "./repository";
-import TodoEntity from "../Entity/todo";
+import { Repository } from "./Repository";
+import TodoEntity from "../Entity/Todo";
 
 interface TodoRepository {
   find(): Promise<TodoEntity[]>;
