@@ -2,9 +2,11 @@ import express, {
   Application as ExpressApplication,
   Request,
   Response,
+  json,
 } from "express";
 import config from "../Config/main";
 import Database from "./database";
+import { newHandler } from "../Handler/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
@@ -16,6 +18,10 @@ class Http implements Application {
   }
 
   public start(): void {
+    this.e.use(json());
+
+    newHandler(this.e);
+
     this.e.all(
       "*",
       (_: Request, response: Response): Response =>
