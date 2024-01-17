@@ -22,7 +22,6 @@ class Todo extends BaseEntity {
 
   @Column({
     type: "tinyint",
-    length: 1,
     nullable: false,
   })
   is_checked: boolean = false;
