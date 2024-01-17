@@ -1,13 +1,19 @@
 import Service from "./Service";
-import TodoEntity from "../Database/Entity/Todo";
+import { TodoInfo } from "../Resource/todo";
 
 interface TodoService {
-  list(): Promise<TodoEntity[]>;
+  list(): Promise<TodoInfo[]>;
 }
 
 class Todo extends Service implements TodoService {
-  public async list(): Promise<TodoEntity[]> {
-    return this.repository.todo.find();
+  public async list(): Promise<TodoInfo[]> {
+    const todos = await this.repository.todo.find();
+
+    const todoInfos: TodoInfo[] = [];
+
+    todos.forEach((todo) => todoInfos.push(todo.getPublicInfo()));
+
+    return todoInfos;
   }
 }
 
