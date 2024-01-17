@@ -1,6 +1,10 @@
+import { repository } from "../Database/Repository/main";
+
 class Service {
-  constructor() {
-    //
+  protected readonly repository: repository;
+
+  constructor(repository: repository) {
+    this.repository = repository;
   }
 }
 

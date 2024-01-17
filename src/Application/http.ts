@@ -7,20 +7,26 @@ import express, {
 import config from "../Config/main";
 import Database from "./database";
 import { newHandler } from "../Handler/main";
+import { newService, service } from "../Service/main";
+import { newRepository, repository } from "../Database/Repository/main";
 
 class Http implements Application {
   private readonly e: ExpressApplication;
   private readonly database: Database;
+  private readonly repository: repository;
+  private readonly service: service;
 
   constructor() {
     this.e = express();
     this.database = new Database();
+    this.repository = newRepository(this.database.getDataSource());
+    this.service = newService(this.repository);
   }
 
   public start(): void {
     this.e.use(json());
 
-    newHandler(this.e);
+    newHandler(this.e, this.service);
 
     this.e.all(
       "*",

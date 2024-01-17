@@ -12,6 +12,7 @@ class Database implements Application {
       username: config.database.username,
       password: config.database.password,
       database: config.database.name,
+      entities: ["./dist/Database/Entity/*.js"],
       migrations: ["./dist/Database/Migration/*.js"],
       migrationsTableName: "migrations",
     };

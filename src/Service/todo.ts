@@ -1,12 +1,13 @@
 import Service from "./service";
+import TodoEntity from "../Database/Entity/todo";
 
 interface TodoService {
-  list(): { status: boolean; message: string };
+  list(): Promise<TodoEntity[]>;
 }
 
 class Todo extends Service implements TodoService {
-  public list(): { status: boolean; message: string } {
-    return { status: true, message: "get list todo success" };
+  public async list(): Promise<TodoEntity[]> {
+    return this.repository.todo.find();
   }
 }
 

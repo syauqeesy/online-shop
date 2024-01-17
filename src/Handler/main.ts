@@ -1,14 +1,19 @@
 import { Application, Request, Response } from "express";
-import { newService, service } from "../Service/main";
+import { service } from "../Service/main";
 
-const newHandler = (e: Application): void => {
-  const s: service = newService();
+const newHandler = (e: Application, s: service): void => {
+  e.get(
+    "/api/v1/todo",
+    async (_: Request, response: Response): Promise<Response> => {
+      const result = await s.todo.list();
 
-  e.get("/api/v1/todo", (_: Request, response: Response): Response => {
-    const result = s.todo.list();
-
-    return response.status(200).json(result);
-  });
+      return response.status(200).json({
+        status: true,
+        message: "get list of todo success",
+        data: result,
+      });
+    }
+  );
 };
 
 export { newHandler };
