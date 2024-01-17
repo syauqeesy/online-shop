@@ -1,15 +1,13 @@
 class HttpException extends Error {
-  public readonly statusCode: number = 500;
-  public readonly data: unknown = null;
+  public readonly statusCode: number;
+  public readonly data: unknown;
 
-  constructor(message: string, statusCode: number, data: unknown) {
+  constructor(message: string, statusCode: number = 500, data: unknown = null) {
     super(message);
 
     this.statusCode = statusCode;
 
-    if (data) {
-      this.data = data;
-    }
+    this.data = data;
   }
 }
 
