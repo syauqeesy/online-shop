@@ -29,17 +29,17 @@ class Todo extends Repository implements TodoRepository {
   }
 
   public async insert(todo: TodoEntity): Promise<void> {
-    await this.repository.todo.insert(todo);
+    this.repository.todo.insert(todo);
   }
 
   public async delete(todo: TodoEntity): Promise<void> {
     todo.deleted_at = DateTime.now().toMillis();
 
-    await this.repository.todo.save(todo);
+    this.repository.todo.save(todo);
   }
 
   public async update(todo: TodoEntity): Promise<void> {
-    await this.repository.todo.save(todo);
+    this.repository.todo.save(todo);
   }
 }
 
