@@ -46,7 +46,7 @@ class Todo extends Service implements TodoService {
   public async delete(request: DeleteTodoRequest): Promise<void> {
     const todo = await this.repository.todo.findById(request.id);
 
-    await this.repository.todo.delete(todo);
+    this.repository.todo.delete(todo);
   }
 
   public async edit(request: EditTodoRequest): Promise<TodoInfo> {
