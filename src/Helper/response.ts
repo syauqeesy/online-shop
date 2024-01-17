@@ -26,11 +26,12 @@ const writeFailResponse = (response: Response, error: unknown): Response => {
     data = error.data;
 
     if (data instanceof ValidationError) {
-      const validationErrors: { key: string; message: string }[] = [];
+      const validationErrors: { path: (string | number)[]; message: string }[] =
+        [];
 
       data.details.forEach((error) => {
         validationErrors.push({
-          key: error.path[0] as string,
+          path: error.path,
           message: error.message,
         });
       });
