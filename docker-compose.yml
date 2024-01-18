@@ -14,4 +14,4 @@ services:
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
     volumes:
-      - ./dist:/app/dist
+      - ./src:/app/src
