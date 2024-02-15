@@ -14,7 +14,9 @@ interface TodoRepository {
 
 class Todo extends Repository implements TodoRepository {
   public async find(): Promise<TodoEntity[]> {
-    return this.repository.todo.find();
+    return this.repository.todo.find({
+      where: { deleted_at: IsNull() },
+    });
   }
 
   public async findById(id: string): Promise<TodoEntity> {
