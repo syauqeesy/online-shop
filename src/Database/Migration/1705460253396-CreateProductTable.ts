@@ -1,13 +1,12 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-class CreateTodoTable1705460253396 implements MigrationInterface {
+class CreateProductTable1705460253396 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-			CREATE TABLE \`todos\`(
+			CREATE TABLE \`products\`(
 				\`id\` CHAR(36) NOT NULL PRIMARY KEY,
-				\`title\` VARCHAR(191) NOT NULL,
-				\`body\` TEXT NOT NULL,
-				\`is_checked\` TINYINT(1) NOT NULL,
+				\`name\` VARCHAR(191) NOT NULL,
+				\`description\` TEXT NOT NULL,
 				\`created_at\` BIGINT NOT NULL,
 				\`updated_at\` BIGINT NULL,
 				\`deleted_at\` BIGINT NULL
@@ -17,9 +16,9 @@ class CreateTodoTable1705460253396 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-			DROP TABLE \`todos\`;
+			DROP TABLE \`products\`;
     `);
   }
 }
 
-export default CreateTodoTable1705460253396;
+export default CreateProductTable1705460253396;

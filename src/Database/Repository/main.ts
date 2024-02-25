@@ -1,19 +1,19 @@
 import { DataSource } from "typeorm";
-import { Todo, TodoRepository } from "./Todo";
-import TodoEntity from "../Entity/Todo";
+import { Product, ProductRepository } from "./Product";
+import ProductEntity from "../Entity/Product";
 import { typeOrmRepository } from "./Repository";
 
 type repository = {
-  todo: TodoRepository;
+  product: ProductRepository;
 };
 
 const newRepository = (dataSource: DataSource): repository => {
   const typeOrmRepository: typeOrmRepository = {
-    todo: dataSource.getRepository(TodoEntity),
+    product: dataSource.getRepository(ProductEntity),
   };
 
   const r: repository = {
-    todo: new Todo(typeOrmRepository),
+    product: new Product(typeOrmRepository),
   };
 
   return r;

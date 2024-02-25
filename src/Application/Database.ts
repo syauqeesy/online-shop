@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import config from "../Config/main";
 
-class Database implements Application {
+class Database {
   private readonly dataSource: DataSource;
 
   constructor() {
@@ -20,7 +20,7 @@ class Database implements Application {
     this.dataSource = new DataSource(option);
   }
 
-  public start(): void {
+  public connect(): void {
     this.dataSource
       .initialize()
       .then(() => {
@@ -31,7 +31,7 @@ class Database implements Application {
       });
   }
 
-  public stop(): void {
+  public disconnect(): void {
     this.dataSource
       .destroy()
       .then(() => {

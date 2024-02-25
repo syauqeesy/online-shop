@@ -2,38 +2,43 @@ import { Application, Request, Response } from "express";
 import { service } from "../Service/main";
 import { writeFailResponse, writeSuccessResponse } from "../Helper/response";
 import {
-  CreateTodoRequest,
-  DeleteTodoRequest,
-  EditTodoRequest,
-  ShowTodoRequest,
-  createTodoRequestRules,
-  deleteTodoRequestRules,
-  editTodoRequestRules,
-  showTodoRequestRules,
-} from "../Request/todo";
+  CreateProductRequest,
+  DeleteProductRequest,
+  EditProductRequest,
+  ShowProductRequest,
+  createProductRequestRules,
+  deleteProductRequestRules,
+  editProductRequestRules,
+  showProductRequestRules,
+} from "../Request/product";
 import { HttpException } from "../Exception/main";
 
 const newHandler = (e: Application, s: service): void => {
   e.get(
-    "/api/v1/todo",
+    "/api/v1/product",
     async (_: Request, response: Response): Promise<void> => {
       try {
-        const result = await s.todo.list();
+        const result = await s.product.list();
 
-        writeSuccessResponse(response, 200, "get list of todo success", result);
+        writeSuccessResponse(
+          response,
+          200,
+          "get list of product success",
+          result
+        );
       } catch (caught: unknown) {
         writeFailResponse(response, caught);
       }
     }
   );
   e.get(
-    "/api/v1/todo/:id",
+    "/api/v1/product/:id",
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const body: ShowTodoRequest = {
+        const body: ShowProductRequest = {
           id: request.params.id as string,
         };
-        const validationResult = showTodoRequestRules.validate(body);
+        const validationResult = showProductRequestRules.validate(body);
         if (validationResult.error)
           throw new HttpException(
             "validation error",
@@ -41,20 +46,20 @@ const newHandler = (e: Application, s: service): void => {
             validationResult.error
           );
 
-        const result = await s.todo.show(body);
+        const result = await s.product.show(body);
 
-        writeSuccessResponse(response, 200, "get todo success", result);
+        writeSuccessResponse(response, 200, "get product success", result);
       } catch (caught: unknown) {
         writeFailResponse(response, caught);
       }
     }
   );
   e.post(
-    "/api/v1/todo",
+    "/api/v1/product",
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const body: CreateTodoRequest = request.body;
-        const validationResult = createTodoRequestRules.validate(body);
+        const body: CreateProductRequest = request.body;
+        const validationResult = createProductRequestRules.validate(body);
         if (validationResult.error)
           throw new HttpException(
             "validation error",
@@ -62,22 +67,22 @@ const newHandler = (e: Application, s: service): void => {
             validationResult.error
           );
 
-        const result = await s.todo.create(body);
+        const result = await s.product.create(body);
 
-        writeSuccessResponse(response, 200, "create todo success", result);
+        writeSuccessResponse(response, 200, "create product success", result);
       } catch (caught: unknown) {
         writeFailResponse(response, caught);
       }
     }
   );
   e.delete(
-    "/api/v1/todo/:id",
+    "/api/v1/product/:id",
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const body: DeleteTodoRequest = {
+        const body: DeleteProductRequest = {
           id: request.params.id as string,
         };
-        const validationResult = deleteTodoRequestRules.validate(body);
+        const validationResult = deleteProductRequestRules.validate(body);
         if (validationResult.error)
           throw new HttpException(
             "validation error",
@@ -85,24 +90,24 @@ const newHandler = (e: Application, s: service): void => {
             validationResult.error
           );
 
-        await s.todo.delete(body);
+        await s.product.delete(body);
 
-        writeSuccessResponse(response, 200, "delete todo success", null);
+        writeSuccessResponse(response, 200, "delete product success", null);
       } catch (caught: unknown) {
         writeFailResponse(response, caught);
       }
     }
   );
   e.put(
-    "/api/v1/todo/:id",
+    "/api/v1/product/:id",
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const body: EditTodoRequest = {
+        const body: EditProductRequest = {
           id: request.params.id as string,
-          title: request.body.title,
-          body: request.body.body,
+          name: request.body.name,
+          description: request.body.description,
         };
-        const validationResult = editTodoRequestRules.validate(body);
+        const validationResult = editProductRequestRules.validate(body);
         if (validationResult.error)
           throw new HttpException(
             "validation error",
@@ -110,9 +115,9 @@ const newHandler = (e: Application, s: service): void => {
             validationResult.error
           );
 
-        const result = await s.todo.edit(body);
+        const result = await s.product.edit(body);
 
-        writeSuccessResponse(response, 200, "edit todo success", result);
+        writeSuccessResponse(response, 200, "edit product success", result);
       } catch (caught: unknown) {
         writeFailResponse(response, caught);
       }

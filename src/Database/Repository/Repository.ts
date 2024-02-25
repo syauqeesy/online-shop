@@ -1,8 +1,8 @@
 import { Repository as TypeOrmRepository } from "typeorm";
-import Todo from "../Entity/Todo";
+import Product from "../Entity/Product";
 
 type typeOrmRepository = {
-  todo: TypeOrmRepository<Todo>;
+  product: TypeOrmRepository<Product>;
 };
 
 class Repository {

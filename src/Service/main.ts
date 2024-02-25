@@ -1,13 +1,13 @@
 import { repository } from "../Database/Repository/main";
-import { Todo, TodoService } from "./Todo";
+import { Product, ProductService } from "./Product";
 
 type service = {
-  todo: TodoService;
+  product: ProductService;
 };
 
 const newService = (repository: repository): service => {
   const s: service = {
-    todo: new Todo(repository),
+    product: new Product(repository),
   };
 
   return s;

@@ -26,7 +26,7 @@ class Http implements Application {
   }
 
   public start(): void {
-    this.database.start();
+    this.database.connect();
 
     this.e.use(json());
 
